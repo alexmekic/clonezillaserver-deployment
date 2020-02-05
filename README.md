@@ -1,9 +1,9 @@
-# PXE Server Deployment Script
-Easily create your own PXE server for restoring images over the network
+# Clonezilla PXE Server Deployment Script
+Easily create a Clonezilla PXE server for restoring images over the network with minimum configuration required
 
 ## Features
 
-- Script installs the following packages required to run the PXE server:
+- Script installs the following packages required to run the Clonezilla PXE server:
   - `sudo` for files editing requiring higher user privileges
   - `bash` to temporarily run `pxedeploy.sh` successfully to configure the server
   - `dnsmasq` for running a DHCP server to temporarily hand out IP address to any client computer booting over network to the PXE server and a TFTP server for handing out the correct boot files
@@ -23,7 +23,7 @@ Easily create your own PXE server for restoring images over the network
 - Permissions on `/pxe/images` are set to `753`, providing full access by the admin account but writeable only permissions for client computers booted off over network and backing up images via Clonezilla
   - Clonezilla uses another user account when Clonezilla is network booted
 
-## Requirements
+## System Requirements 
 
 - Installation of FreeBSD 12.0 or greater with a second hard drive/partition named `/pxe` mounted
   - Guide to how to download and install FreeBSD: <insert github page of guide>
@@ -33,7 +33,14 @@ Easily create your own PXE server for restoring images over the network
 Or:
 
 - 
-  
+
+## Configuration Requirements upon using Script
+
+- Minimum one static IP address for one NIC and used for DHCP server and Clonezilla
+- IP address range for DHCP server
+- Hostname of server
+- Admin account password
+
 ## Installation
 
 - Login as root
