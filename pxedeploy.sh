@@ -247,12 +247,12 @@ function create_pxe_directories {
 
 function copy_management {
 	echo -n "Copying PXE Management Script and configuring for startup at login..."
-	chmod +x PXEManagement
-	cp PXEManagement /usr/home/admin
+	chmod +x pxe_management
+	cp pxe_management /usr/home/admin
 	echo "Loading PXE Management Script..." >> /usr/home/admin/.login
-	echo "./PXEManagement" >> /usr/home/admin/.login
+	echo "./pxe_management" >> /usr/home/admin/.login
 	chown -R admin:admin /usr/home/admin/.login
-	chown -R admin:admin /usr/home/admin/PXEManagement
+	chown -R admin:admin /usr/home/admin/pxe_management
 	echo "done"
 }
 
