@@ -249,7 +249,7 @@ function copy_management {
 	echo -n "Copying PXE Management Script and configuring for startup at login..."
 	chmod +x pxe_management
 	cp pxe_management /usr/home/admin
-	echo "Loading PXE Management Script..." >> /usr/home/admin/.login
+	echo "echo 'Loading PXE Management Script...'" >> /usr/home/admin/.login
 	echo "./pxe_management" >> /usr/home/admin/.login
 	chown -R admin:admin /usr/home/admin/.login
 	chown -R admin:admin /usr/home/admin/pxe_management
