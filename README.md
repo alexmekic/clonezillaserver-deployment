@@ -1,5 +1,5 @@
-# Clonezilla PXE Server Deployment Script
-Easily create a Clonezilla PXE server for restoring images over the network with minimum configuration required
+# Clonezilla iPXE Server Deployment Script
+Easily create a Clonezilla iPXE server for restoring images over the network with minimum configuration required
 
 ## Features
 
@@ -26,25 +26,20 @@ Easily create a Clonezilla PXE server for restoring images over the network with
 ## System Requirements 
 
 - Installation of FreeBSD 12.0 or greater with a second hard drive/partition named `/pxe` mounted
-  - Guide to how to download and install FreeBSD: <insert github page of guide>
 - Internet connection to download and install required packages
-- USB Drive formatted as FAT32 with `postinstall.sh` `pxedeploy.sh`, compiled version of `ClonezillaInstall` under Compiled copied and compiled version of `PXEManagement` from 
-
-Or:
-
-- 
 
 ## Configuration Requirements upon using Script
 
 - Minimum one static IP address for one NIC and used for DHCP server and Clonezilla
 - IP address range for DHCP server
 - Hostname of server
-- Admin account password
+- Preferred admin account password, recommended to be as complex as possible
 
 ## Installation
 
 - Login as root
-- Plug in USB drive and type in `mount -t msdosfs /dev/<
-- Make sure `postinstall.sh` is executable by running `chmod +x postinstall.sh` as root
-- Type in `./postinstall.sh` to run the script file and wait for all required packages to download and install
-- 
+- Type `pkg install -y git` to install git to download the Clonezilla deployment files
+- Type `git clone git://github.com/kuroyoshi10/clonezillaserver-deployement` to download all the required files
+- Type `chmod +x postinstall.sh` to allow the `postinstall.sh` to run
+- Type `./postinstall.sh` to run the script file and wait for all required packages to download and install
+- Enter in all the required information for the iPXE Clonezilla server to operate normally
