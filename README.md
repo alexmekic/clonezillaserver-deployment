@@ -43,3 +43,8 @@ Easily create a Clonezilla iPXE server for restoring images over the network wit
 - Type `chmod +x postinstall.sh` to allow the `postinstall.sh` to run
 - Type `./postinstall.sh` to run the script file and wait for all required packages to download and install
 - Enter in all the required information for the iPXE Clonezilla server to operate normally
+
+## Release History
+
+- 1.0
+  -Initial Release
