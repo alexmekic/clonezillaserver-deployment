@@ -193,6 +193,7 @@ function configure_boot_ipxe {
 
 :start
 menu PXE Server Boot Menu
+item clonezilla Boot Clonezilla
 item disk Backup Disk to Image
 item partition Backup Partitions to Image
 item shell Enter Shell
@@ -200,6 +201,16 @@ item exit Exit
 
 choose --default shell option && goto \${option}
 
+:clonezilla
+set cz_root nfs://$1/pxe/tftp/clonezilla/live
+kernel \${cz_root}/vmlinuz initrd=initrd.img boot=live username=user \
+union=overlay config components noswap edd=on nomodeset nodmraid \
+locales=en_US.UTF-8 keyboard-layouts=NONE ocs_live_run=\"ocs-live-general\" \
+ocs_live_extra_param=\"\" ocs_live_batch=no net.ifnames=0 nosplash noprompt \
+ip=frommedia netboot=nfs nfsroot=$1:/pxe/tftp/clonezilla
+initrd \${cz_root}/initrd.img
+imgstat
+boot
 :disk
 set cz_root nfs://$1/pxe/tftp/clonezilla/live
 kernel \${cz_root}/vmlinuz initrd=initrd.img boot=live username=user \
@@ -256,6 +267,17 @@ function copy_management {
 	echo "done"
 }
 
+function enable_autoreplace {
+	echo -n "Enabling autoreplace on ZFS pool pxe..."
+	zpool status | grep pxe
+	if [ $? -eq 0 ]; then
+		zpool set autoreplace=on pxe
+		echo "done"
+	else
+		echo "error. ZFS pool name pxe does not exist."
+	fi
+}
+
 new_host="$(configure_hostname)"
 configure_admin_account
 configure_samba $new_host
@@ -266,5 +288,6 @@ chown -R admin:admin /pxe/images
 chmod 753 /pxe/images
 chown -R admin:admin /pxe/tftp
 copy_management
+enable_autoreplace
 echo "Rebooting..."
 reboot
