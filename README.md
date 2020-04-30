@@ -25,7 +25,7 @@ Easily create a Clonezilla iPXE server for restoring images over the network wit
 
 ## System Requirements 
 
-- Installation of FreeBSD 12.0 or greater with a second hard drive/partition named `/pxe` mounted
+- Installation of FreeBSD 12.1 or greater with ZFS pool named `pxe`
 - Internet connection to download and install required packages
 
 ## Configuration Requirements upon using Script
@@ -47,4 +47,7 @@ Easily create a Clonezilla iPXE server for restoring images over the network wit
 ## Release History
 
 - 1.0
-  -Initial Release
+  - Initial Release
+- 1.1
+  - Updated pxe_management compiled application in package with v1.2
+  - Added command to set pxe zpool autorebuild to `on` for automatic ZFS rebuild
