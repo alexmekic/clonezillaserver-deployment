@@ -9,23 +9,18 @@ Easily create a Clonezilla iPXE server for restoring images over the network wit
   - `dnsmasq` for running a DHCP server to temporarily hand out IP address to any client computer booting over network to the PXE server and a TFTP server for handing out the correct boot files
   - `ipxe` for running a PXE server bootable for BIOS/EFI based client computers over network with the boot menu file
   - `samba410` for allowing `/pxe/images` to be accessed over a Windows computers to copy/backup restore images
-  
+  - `apache` for installing operating systems over network using HTTP protocol
+
+- Creates new or import existing ZFS storage pool for storing operating system images
 - `ClonezillaInstall` automatically downloads and unzips the latest stable version of Clonezilla to `/pxe/tftp/clonezilla` used for backing up and restoring operating system images to client computers
-- Creates a boot menu file template called `boot.ipxe` located under `/pxe/tftp` containing backup imaging options for client computers to choose, and for storing new restore entires created via the PXE Management Application
+- Creates a boot menu file template called `boot.ipxe` containing backup imaging options for client computers to choose, and for storing new restore entires created via the PXE Management Application
 - Configures `dnsmasq` to serve IP addresses with lease time of 1 hour and boot files `ipxe.pxe` for BIOS-based computers and `ipxe.efi` for EFI-based computers to be served
-- Configures NFS for `/pxe` containing restore images inside `/pxe/images` and installation of Clonezilla to be accessed over network
+- Configures NFS and Apache as network sharing procotols for restoring images or installing an operating system over network
 - Configures `/etc/rc.conf` file with IP addresses inputed by the user and all required services to be enabled and started on PXE server boot up
-- Configures appropriate read/write permissions to `/pxe/images/`
-
-## Need to know
-
-- Script currently allows only one static NIC to be used for setting up `iPXE` and `dnsmasq`, rest of the NICs can be statically set or DHCP configured
-- Permissions on `/pxe/images` are set to `753`, providing full access by the admin account but writeable only permissions for client computers booted off over network and backing up images via Clonezilla
-  - Clonezilla uses another user account when Clonezilla is network booted
 
 ## System Requirements 
 
-- Installation of FreeBSD 12.1 or greater with ZFS pool named `pxe`
+- Installation of FreeBSD 12.1 or greater
 - Internet connection to download and install required packages
 
 ## Configuration Requirements upon using Script
@@ -41,8 +36,7 @@ Easily create a Clonezilla iPXE server for restoring images over the network wit
 - Type `pkg install -y git` to install git to download the Clonezilla deployment files
 - Type `git clone git://github.com/kuroyoshi10/clonezillaserver-deployement` to download all the required files
 - Type `chmod +x postinstall.sh` to allow the `postinstall.sh` to run
-- Type `./postinstall.sh` to run the script file and wait for all required packages to download and install
-- Enter in all the required information for the iPXE Clonezilla server to operate normally
+- Type `./postinstall.sh` to run the script file and follow the prompts
 
 ## Release History
 
@@ -51,3 +45,14 @@ Easily create a Clonezilla iPXE server for restoring images over the network wit
 - 1.1
   - Updated pxe_management compiled application in package with v1.2
   - Added command to set pxe zpool autorebuild to `on` for automatic ZFS rebuild
+- 2.0
+  - Updated pxe_management compiled application in package with v1.3
+  - Revamped script for better user interactivity
+    - Added Welcome message upon loading the script
+  - Added ability for user to make own admin account username
+  - Added network card name for each network inteface detected for better identification upon IP configuration
+  - Added feature for user to create or import ZFS storage pool
+    - Added ability to display list of disks available and RAID options applicable
+  - Added apache installation and configuration for operating system installs over network
+  - Allow user to re-enter Samba password upon password mismatch
+  - Added `os` subdirectory to Samba share configuration
