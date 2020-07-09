@@ -18,9 +18,11 @@ Easily create a Clonezilla PXE server for restoring images over the network with
 ## System Requirements 
 
 - Installation of FreeBSD 12.1 or greater
-- Internet connection to download and install required packages
+- Minimum 4GB of RAM recommended
+- Minimum 2 hard disk or solid state drives
 - Desktop or server with minimum two NIC's installed
   - One NIC required dedicated for DHCP and PXE
+- Internet connection to download and install required packages
 
 ## Installation (to be updated)
 
