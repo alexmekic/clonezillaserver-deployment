@@ -19,7 +19,6 @@ Easily create a Clonezilla PXE server for restoring images over the network with
 
 - Installation of FreeBSD 12.1 or greater
 - Minimum 4GB of RAM recommended
-- Minimum 2 hard disk or solid state drives
 - Desktop or server with minimum two NIC's installed
   - One NIC required dedicated for DHCP and PXE
 - Internet connection to download and install required packages
@@ -28,7 +27,7 @@ Easily create a Clonezilla PXE server for restoring images over the network with
 
 - Login as root
 - Type `pkg install -y curl` to install curl to download the Clonezilla deployment release files
-- Type `curl -L -O http://github.com/kuroyoshi10/clonezillaserver-deployment/releases/download/2.1/PXEDeploy2.1.zip` to download all the required files
+- Type `curl -L -O https://github.com/kuroyoshi10/clonezillaserver-deployment/releases/download/2.1/PXEDeploy2.1.zip` to download all the required files
 - Unzip it with `unzip PXEDeploy2.1.zip`
 - Type `chmod +x postinstall.sh` to allow the `postinstall.sh` to run
 - Type `./postinstall.sh` to run the script file and follow the prompts
