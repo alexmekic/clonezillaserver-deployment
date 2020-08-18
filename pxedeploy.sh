@@ -308,7 +308,7 @@ function create_storage_pool {
 		echo "4: RAID 6 (minimum 3 disks required, 2 disk failures max)"
 		echo "5: RAID 10 (minimum 4 disks required, 1 disk failure max per mirror set)"
 		echo ""
-		read -p "Select RAID option for creating storage pool (1-4): " raid_option
+		read -p "Select RAID option for creating storage pool (1-5): " raid_option
 		case $raid_option in
 			1)
 				read -p "Enter disk dev name (e.g. ada1): " mirror_disks
