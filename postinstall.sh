@@ -9,7 +9,7 @@ deploy()
     ./pxedeploy.sh
 }
 
-echo "Welcome to the PXE Server Deployment Script Program v2.0!"
+echo "Welcome to the PXE Server Deployment Script Program v2.1!"
 echo ""
 echo "Deployment Script Program will be prompting and executing the following actions:"
 echo ""
@@ -21,8 +21,8 @@ echo "  - Create or import storage pool for operating system restore images"
 echo "  - Enable ZFS automatic RAID rebuild on disk failure"
 echo "  - Configure network sharing access to restore images"
 echo "  - Configure a basic web server"
-echo "  - Download and install latest version of Clonezilla"
-echo "  - Create a default boot entry menu for backing up images"
+echo "  - Download and install latest version of Clonezilla and PXE Management Application"
+echo "  - Create a default boot entry menu for backing up images and booting Clonezilla"
 echo ""
 while :
 do
