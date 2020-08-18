@@ -388,14 +388,12 @@ function import_storage_pool {
 function create_pxe_directories {
 	echo -n "Creating required PXE directories and setting permissions..."
 	mkdir /"$1"/images
+	mkdir -p /"$1"/tftp/clonezilla
+	mkdir /"$1"/os
+	mkdir /"$1"/pxe_management
+	chown -R $2:wheel /"$1"
 	chown -R nobody:wheel /"$1"/images
 	chmod -R 770 /"$1"/images
-	mkdir -p /"$1"/tftp/clonezilla
-	chown -R $2:wheel /"$1"/tftp
-	mkdir /"$1"/os
-	chown -R $2:wheel /"$1"/os
-	mkdir /"$1"/pxe_management
-	chown -R $2:wheel /"$1"/pxe_management
 	echo "done"
 }
 
