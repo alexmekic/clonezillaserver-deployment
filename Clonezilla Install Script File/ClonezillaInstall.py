@@ -9,7 +9,7 @@ def download_management(zfs_pool):
         latest_version = json.loads(requests.get(website_url).text)[0]['tag_name']
         print("done")
         try:
-            print("Downloading and Installing PXE Management Application...", end='', flush=True)
+            print("Downloading and Installing PXE Management Application...")
             url_download = "https://github.com/kuroyoshi10/clonezillaserver-management/releases/download/" + latest_version + "/pxe_management"
             wget.download(url=url_download, out='/' + zfs_pool + '/pxe_management/pxe_management')
             print("done")
