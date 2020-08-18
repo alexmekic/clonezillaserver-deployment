@@ -22,9 +22,8 @@ function netmask_validity {
 
 function clonezilla_install {
 	./ClonezillaInstall $2
-	chown -R $1:$1 /"$2"/images
-	chmod 753 /"$2"/images
-	chown -R $1:$1 /"$2"/tftp
+	chown -R nobody:wheel /"$2"/images
+	chown -R $1:wheel /"$2"/tftp
 }
 
 function configure_hostname {
@@ -303,16 +302,17 @@ function create_storage_pool {
 		echo ""
 		echo "List of RAID options:"
 		echo ""
-		echo "1: RAID 1 (Mirror)"
-		echo "2: RAID 5 with 1 parity disk (minimum 3 disks required, 1 disk failure max)"
-		echo "3: RAID 5 with 2 parity disks (minimum 3 disks required, 2 disk failures max)"
-		echo "4: RAID 10 (minimum 4 disks required, 1 disk failure max per mirror set)"
+		echo "1: Single disk"
+		echo "2: RAID 1 (minimum 2 disks required, 1 disk failure max)"
+		echo "3: RAID 5 (minimum 3 disks required, 1 disk failure max)"
+		echo "4: RAID 6 (minimum 3 disks required, 2 disk failures max)"
+		echo "5: RAID 10 (minimum 4 disks required, 1 disk failure max per mirror set)"
 		echo ""
 		read -p "Select RAID option for creating storage pool (1-4): " raid_option
 		case $raid_option in
 			1)
-				read -p "Enter disk dev names with spaces (e.g. ada1 ada2): " mirror_disks
-				zpool create $pool_name mirror $mirror_disks
+				read -p "Enter disk dev name (e.g. ada1): " mirror_disks
+				zpool create $pool_name $mirror_disks
 				if [ $? -ne 0 ]; then
 					continue
 				else
@@ -322,6 +322,16 @@ function create_storage_pool {
 				;;
 			2)
 				read -p "Enter disk dev names with spaces (e.g. ada1 ada2): " mirror_disks
+				zpool create $pool_name mirror $mirror_disks
+				if [ $? -ne 0 ]; then
+					continue
+				else
+					echo "RAID 1 storage pool $pool_name created successfully"
+					break
+				fi
+				;;
+			3)
+				read -p "Enter disk dev names with spaces (e.g. ada1 ada2): " mirror_disks
 				zpool create $pool_name raidz $mirror_disks
 				if [ $? -ne 0 ]; then
 					continue
@@ -330,7 +340,7 @@ function create_storage_pool {
 					break
 				fi
 				;;
-			3)
+			4)
 				read -p "Enter disk dev names with spaces (e.g. ada1 ada2): " mirror_disks
 				zpool create $pool_name raidz2 $mirror_disks
 				if [ $? -ne 0 ]; then
@@ -340,9 +350,9 @@ function create_storage_pool {
 					break
 				fi
 				;;
-			4)
-				read -p "Enter disk dev names with spaces for first mirror set (e.g. ada1 ada2): " mirror_disk_set1
-				read -p "Enter disk dev names with spaces for second mirror set (e.g. ada3 ada4): " mirror_disk_set2
+			5)
+				read -p "Enter disk dev names for first mirror set (e.g. ada1 ada2): " mirror_disk_set1
+				read -p "Enter disk dev names for second mirror set (e.g. ada3 ada4): " mirror_disk_set2
 				zpool create $pool_name mirror $mirror_disk_set1 mirror $mirror_disk_set2
 				if [ $? -ne 0 ]; then
 					continue
@@ -376,22 +386,25 @@ function import_storage_pool {
 }
 
 function create_pxe_directories {
-	echo -n "Creating required PXE folders..."
+	echo -n "Creating required PXE directories and setting permissions..."
 	mkdir /"$1"/images
-	mkdir /"$1"/tftp
-	mkdir /"$1"/tftp/clonezilla
+	chown -R nobody:wheel /"$1"/images
+	chmod -R 770 /"$1"/images
+	mkdir -p /"$1"/tftp/clonezilla
+	chown -R $2:wheel /"$1"/tftp
 	mkdir /"$1"/os
-	chmod -R 777 /"$1"/images
+	chown -R $2:wheel /"$1"/os
+	mkdir /"$1"/pxe_management
+	chown -R $2:wheel /"$1"/pxe_management
 	echo "done"
 }
 
 function copy_management {
-	echo -n "Copying PXE Management Script and configuring for startup at login..."
-	chmod +x pxe_management
-	cp pxe_management /home/"$1"
+	echo -n "Configuring PXE Management Application for startup at login..."
+	chmod +x /"$2"/pxe_management/pxe_management
 	echo "echo 'Loading PXE Management Application...'" >> /home/"$1"/.profile
-	echo "./pxe_management" >> /home/"$1"/.profile
-	chown -R $1:$1 /home/"$1"/pxe_management
+	echo "/$2/pxe_management/pxe_management /$2" >> /home/"$1"/.profile
+	chown -R $1:wheel /"$2"/pxe_management
 	echo "done"
 }
 
@@ -423,11 +436,11 @@ while true; do
 			;;
 	esac
 done
-create_pxe_directories $storage_pool_name
+create_pxe_directories $storage_pool_name $admin_username
 configure_samba $server_hostname $storage_pool_name $admin_username
 configure_ip $storage_pool_name
 clonezilla_install $admin_username $storage_pool_name
-copy_management $admin_username
+copy_management $admin_username $storage_pool_name
 enable_autoreplace $storage_pool_name
 while true; do
 	read -p "PXE Server installation and configuration complete. Reboot server? (y/n): " reboot_prompt
