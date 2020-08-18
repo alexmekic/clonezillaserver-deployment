@@ -48,7 +48,7 @@ Easily create a Clonezilla iPXE server for restoring images over the network wit
 - 2.0
   - Updated pxe_management compiled application in package with v1.3
   - Revamped script for better user interactivity
-    - Added Welcome message upon loading the script
+    - Added Welcome message upon loading script
   - Added ability for user to make own admin account username
   - Added network card name for each network inteface detected for better identification upon IP configuration
   - Added feature for user to create or import ZFS storage pool
@@ -56,3 +56,11 @@ Easily create a Clonezilla iPXE server for restoring images over the network wit
   - Added apache installation and configuration for operating system installs over network
   - Allow user to re-enter Samba password upon password mismatch
   - Added `os` subdirectory to Samba share configuration
+- 2.1
+  - Applied `chown` permissions on `images` directory to `nobody:wheel` to maintain permission functionality with Clonezilla Live
+  - Redirected PXE Management Application to `pxe_management` subdirectory in zfs pool
+  - Added boot entry for booting Clonezilla for manual control
+  - Added ability to download latest Python management application in `ClonezillaInstall.py`
+    - Redirected download link for Clonezilla Live to Sourceforge for faster download speed
+    - Removed `pxe_management` application
+  - Added option for single disk ZFS storage pool configuration
