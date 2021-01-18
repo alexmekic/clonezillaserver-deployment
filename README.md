@@ -27,8 +27,8 @@ Easily create a Clonezilla PXE server for restoring images over the network with
 
 - Login as root
 - Type `pkg install -y curl` to install curl to download the Clonezilla deployment release files
-- Type `curl -L -O https://github.com/alexmekic/clonezillaserver-deployment/releases/download/2.1/PXEDeploy2.1.zip` to download all the required files
-- Unzip it with `unzip PXEDeploy2.1.zip`
+- Type `curl -L -O https://github.com/alexmekic/clonezillaserver-deployment/releases/download/2.1.1/PXEDeploy2.1.1.zip` to download all the required files
+- Unzip it with `unzip PXEDeploy2.1.1.zip`
 - Type `chmod +x postinstall.sh` to allow the `postinstall.sh` to run
 - Type `./postinstall.sh` to run the script file and follow the prompts
 
@@ -58,3 +58,5 @@ Easily create a Clonezilla PXE server for restoring images over the network with
     - Redirected download link for Clonezilla Live to Sourceforge for faster download speed
     - Removed `pxe_management` application
   - Added option for single disk ZFS storage pool configuration
+  - 2.1.1
+    - Changed `ip=frommedia` to `ip=dhcp` in PXE boot file to reflect bug change in Clonezilla 2.7
