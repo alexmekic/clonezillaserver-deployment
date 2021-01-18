@@ -5,7 +5,7 @@ deploy()
     chmod +x pxedeploy.sh
     chmod +x ClonezillaInstall
     echo "Installing/updating required packages..." 
-    pkg install -y sudo nano bash dnsmasq ipxe samba410 apache24
+    pkg install -y sudo nano bash dnsmasq ipxe samba413 apache24
     ./pxedeploy.sh
 }
 
