@@ -248,7 +248,7 @@ kernel \${cz_root}/vmlinuz initrd=initrd.img boot=live username=user \
 union=overlay config components noswap edd=on nomodeset nodmraid \
 locales=en_US.UTF-8 keyboard-layouts=NONE ocs_live_run=\"ocs-live-general\" \
 ocs_live_extra_param=\"\" ocs_live_batch=no net.ifnames=0 nosplash noprompt \
-ip=frommedia netboot=nfs nfsroot=$1:/$2/tftp/clonezilla
+ip=dhcp netboot=nfs nfsroot=$1:/$2/tftp/clonezilla
 initrd \${cz_root}/initrd.img
 imgstat
 boot
@@ -258,7 +258,7 @@ kernel \${cz_root}/vmlinuz initrd=initrd.img boot=live username=user \
 union=overlay config components noswap edd=on nomodeset nodmraid \
 locales=en_US.UTF-8 keyboard-layouts=NONE ocs_live_run=\"ocs-live-general\" \
 ocs_live_extra_param=\"\" ocs_live_batch=no net.ifnames=0 nosplash noprompt \
-ip=frommedia netboot=nfs nfsroot=$1:/$2/tftp/clonezilla \
+ip=dhcp netboot=nfs nfsroot=$1:/$2/tftp/clonezilla \
 ocs_prerun1=\"mount -t nfs $1:/$2/images /home/partimag -o \
 noatime,nodiratime,\" oscprerun2=\"sleep 10\" ocs_live_run=\"/usr/sbin/ocs-sr \
 -q2 -j2 -nogui -z1p -i 1000000 -fsck-y -senc -p reboot savedisk ask_user \
@@ -272,7 +272,7 @@ kernel \${cz_root}/vmlinuz initrd=initrd.img boot=live username=user \
 union=overlay config components noswap edd=on nomodeset nodmraid \
 locales=en_US.UTF-8 keyboard-layouts=NONE ocs_live_run=\"ocs-live-general\" \
 ocs_live_extra_param=\"\" ocs_live_batch=no net.ifnames=0 nosplash noprompt \
-ip=frommedia netboot=nfs nfsroot=$1:/$2/tftp/clonezilla \
+ip=dhcp netboot=nfs nfsroot=$1:/$2/tftp/clonezilla \
 ocs_prerun1=\"mount -t nfs $1:/$2/images /home/partimag -o \
 noatime,nodiratime,\" oscprerun2=\"sleep 10\" ocs_live_run=\"/usr/sbin/ocs-sr \
 -q2 -j2 -nogui -z1p -i 1000000 -fsck-y -senc -p reboot saveparts ask_user \
@@ -316,7 +316,7 @@ function create_storage_pool {
 				if [ $? -ne 0 ]; then
 					continue
 				else
-					echo "RAID 1 storage pool $pool_name created successfully"
+					echo "Single disk storage pool $pool_name created successfully"
 					break
 				fi
 				;;
