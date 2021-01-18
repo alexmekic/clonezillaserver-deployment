@@ -4,12 +4,12 @@ deploy()
 {
     chmod +x pxedeploy.sh
     chmod +x ClonezillaInstall
-    echo "Installing/updating required packages..."
+    echo "Installing/updating required packages..." 
     pkg install -y sudo nano bash dnsmasq ipxe samba410 apache24
     ./pxedeploy.sh
 }
 
-echo "Welcome to the PXE Server Deployment Script Program v2.1!"
+echo "Welcome to the PXE Server Deployment Script Program v2.1.1!"
 echo ""
 echo "Deployment Script Program will be prompting and executing the following actions:"
 echo ""
