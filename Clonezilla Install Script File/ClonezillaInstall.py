@@ -5,12 +5,12 @@ from zipfile import ZipFile
 def download_management(zfs_pool):
     print("Checking for PXE Management Application...", end='', flush=True)
     try:
-        website_url = 'https://api.github.com/repos/kuroyoshi10/clonezillaserver-management/releases'
+        website_url = 'https://api.github.com/repos/alexmekic/pxe-server-management/releases'
         latest_version = json.loads(requests.get(website_url).text)[0]['tag_name']
         print("done")
         try:
             print("Downloading and Installing PXE Management Application...")
-            url_download = "https://github.com/kuroyoshi10/clonezillaserver-management/releases/download/" + latest_version + "/pxe_management"
+            url_download = "https://github.com/alexmekic/pxe-server-management/releases/download/" + latest_version + "/pxe_management"
             wget.download(url=url_download, out='/' + zfs_pool + '/pxe_management/pxe_management')
             print("done")
             print("PXE Management Application installed successfully")
