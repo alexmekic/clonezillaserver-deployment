@@ -9,7 +9,7 @@ deploy()
     ./pxedeploy.sh
 }
 
-echo "Welcome to the PXE Server Deployment Script Program v2.1.1!"
+echo "Welcome to the PXE Server Deployment Script Program v2.1.2!"
 echo ""
 echo "Deployment Script Program will be prompting and executing the following actions:"
 echo ""
