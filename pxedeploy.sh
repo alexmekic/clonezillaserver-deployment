@@ -371,6 +371,8 @@ function create_storage_pool {
 }
 
 function import_storage_pool {
+	local __returnvar=$1
+	local pool_name
 	while true; do
 		zpool import
 		read -p "Enter name of pool to import (0 to exit): " pool_import
@@ -383,6 +385,7 @@ function import_storage_pool {
 			break
 		fi
 	done
+	printf -v "$__returnvar" '%s' "$pool_name"
 }
 
 function create_pxe_directories {
