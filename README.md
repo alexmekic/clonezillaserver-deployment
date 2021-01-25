@@ -60,3 +60,5 @@ Easily create a Clonezilla PXE server for restoring images over the network with
   - Added option for single disk ZFS storage pool configuration
   - 2.1.1
     - Changed `ip=frommedia` to `ip=dhcp` in PXE boot file to reflect bug change in Clonezilla 2.7
+  - 2.1.2
+    - Fixed bug in creating Samba password after importing ZFS pool
