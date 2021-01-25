@@ -56,7 +56,7 @@ Easily create a Clonezilla PXE server for restoring images over the network with
   - Added boot entry for booting Clonezilla for manual control
   - Added ability to download latest Python management application in `ClonezillaInstall.py`
     - Redirected download link for Clonezilla Live to Sourceforge for faster download speed
-    - Removed `pxe_management` application
+    - Download latest version of PXE Management Application
   - Added option for single disk ZFS storage pool configuration
   - 2.1.1
     - Changed `ip=frommedia` to `ip=dhcp` in PXE boot file to reflect bug change in Clonezilla 2.7
