@@ -1,4 +1,4 @@
-# Clonezilla PXE Server Deployment Script
+# Deploy a Clonezilla PXE Server
 Easily create a Clonezilla PXE server for restoring images over the network with minimum configuration required
 
 ## Features
